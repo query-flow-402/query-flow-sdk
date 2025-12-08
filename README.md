@@ -50,6 +50,14 @@ console.log(
 
 ## 💡 Payment Modes
 
+The SDK supports three payment modes for different use cases:
+
+| Mode        | Token        | Header          | Use Case                         |
+| :---------- | :----------- | :-------------- | :------------------------------- |
+| `signature` | None         | `x-402-payment` | Development/Testing              |
+| `tx`        | Native AVAX  | `x-402-payment` | **SDK/Agents (Recommended)**     |
+| `thirdweb`  | USDC (ERC20) | `x-payment`     | Frontend (requires Thirdweb SDK) |
+
 ### Signature Mode (Default — Free for Development)
 
 ```typescript
@@ -58,16 +66,26 @@ const client = new QueryFlowClient(privateKey);
 // Perfect for development and testing
 ```
 
-### Real Payment Mode (Production)
+### Real Payment Mode (Production — Recommended for SDK)
 
 ```typescript
 const client = new QueryFlowClient(privateKey, {
   mode: "tx",
-  apiUrl: "https://api.queryflow.io", // Production API
+  apiUrl: "https://api.queryflow.io",
 });
-// Sends real AVAX transactions on Avalanche
-// Requires funded wallet
+// Sends real AVAX transactions on Avalanche Fuji
+// Simple, no token approvals needed
 ```
+
+### Thirdweb Mode (USDC — For Frontend Integration)
+
+```typescript
+// Best used with Thirdweb React hooks (useFetchWithPayment)
+// Requires EIP-712 permit signatures for USDC
+const client = new QueryFlowClient(privateKey, { mode: "thirdweb" });
+```
+
+> **Note**: For programmatic/agent use, we recommend `mode: "tx"` with native AVAX for simplicity.
 
 ---
 

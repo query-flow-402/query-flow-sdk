@@ -1,7 +1,7 @@
 export interface ClientOptions {
   apiKey?: string;
   apiUrl?: string;
-  mode?: "signature" | "tx"; // Payment mode: 'signature' (test) or 'tx' (real)
+  mode?: "signature" | "tx" | "thirdweb"; // Payment mode: 'signature' (test), 'tx' (custom real), 'thirdweb' (standard x402)
 }
 
 // Result Types matching the API response structure's "data" field
@@ -28,6 +28,12 @@ export interface PriceResult {
     value: string;
     impact: "positive" | "negative" | "neutral";
   }>;
+  technicalAnalysis?: {
+    rsi: number;
+    support: number;
+    resistance: number;
+    trend: string;
+  };
   context: string;
 }
 
