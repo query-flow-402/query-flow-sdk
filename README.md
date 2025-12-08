@@ -1,0 +1,274 @@
+# @queryflow/sdk
+
+The official Node.js/TypeScript SDK for **QueryFlow** — a pay-per-query AI insights platform powered by the x402 payment protocol on Avalanche.
+
+[![npm version](https://img.shields.io/npm/v/@queryflow/sdk.svg)](https://www.npmjs.com/package/@queryflow/sdk)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## ✨ Features
+
+- 🧠 **AI-Powered Insights** — Market sentiment, price predictions, risk analysis, social trends
+- 💸 **Pay-Per-Query** — No subscriptions, pay only for what you use
+- 🔐 **Wallet-Based Auth** — No API keys, just your crypto wallet
+- ⚡ **Simple Integration** — 3 lines of code to get started
+- 🔄 **Dual Payment Modes** — Signature (dev) or Real AVAX (production)
+
+---
+
+## 📦 Installation
+
+```bash
+npm install @queryflow/sdk
+# or
+pnpm add @queryflow/sdk
+# or
+yarn add @queryflow/sdk
+```
+
+---
+
+## 🚀 Quick Start
+
+```typescript
+import { QueryFlowClient } from "@queryflow/sdk";
+
+// Initialize with your wallet private key
+const client = new QueryFlowClient(process.env.PRIVATE_KEY);
+
+// Query market sentiment
+const result = await client.market({
+  assets: ["BTC", "ETH"],
+  timeframe: "24h",
+});
+
+console.log(
+  `Sentiment: ${result.sentiment.score}/100 (${result.sentiment.trend})`
+);
+```
+
+---
+
+## 💡 Payment Modes
+
+### Signature Mode (Default — Free for Development)
+
+```typescript
+const client = new QueryFlowClient(privateKey);
+// Uses cryptographic signatures instead of real payments
+// Perfect for development and testing
+```
+
+### Real Payment Mode (Production)
+
+```typescript
+const client = new QueryFlowClient(privateKey, {
+  mode: "tx",
+  apiUrl: "https://api.queryflow.io", // Production API
+});
+// Sends real AVAX transactions on Avalanche
+// Requires funded wallet
+```
+
+---
+
+## 📖 API Reference
+
+### Constructor
+
+```typescript
+new QueryFlowClient(privateKey: string, options?: ClientOptions)
+```
+
+| Parameter        | Type                  | Description                                           |
+| :--------------- | :-------------------- | :---------------------------------------------------- |
+| `privateKey`     | `string`              | Your wallet private key (with or without `0x` prefix) |
+| `options.apiUrl` | `string`              | API endpoint (default: `http://localhost:3001`)       |
+| `options.mode`   | `"signature" \| "tx"` | Payment mode (default: `"signature"`)                 |
+
+---
+
+### `client.market(params)`
+
+Get AI-powered market sentiment analysis.
+
+```typescript
+const result = await client.market({
+  assets: ["BTC", "ETH", "SOL"],
+  timeframe: "24h", // Options: "1h", "4h", "24h", "7d"
+});
+```
+
+**Response: `MarketResult`**
+
+```typescript
+{
+  sentiment: {
+    score: 72,           // 0-100
+    trend: "bullish",    // "bullish" | "bearish" | "neutral"
+    summary: "Market shows positive momentum..."
+  },
+  factors: [...],        // Key market factors
+  tokensUsed: 150        // AI tokens consumed
+}
+```
+
+---
+
+### `client.price(params)`
+
+Get price prediction with technical analysis.
+
+```typescript
+const result = await client.price({
+  asset: "BTC",
+  timeframe: "24h",
+});
+```
+
+**Response: `PriceResult`**
+
+```typescript
+{
+  prediction: {
+    targetPrice: 95000,
+    direction: "up",     // "up" | "down" | "neutral"
+    confidence: 0.75,    // 0-1
+    timeframe: "24h"
+  },
+  signals: [...],        // Technical indicators
+  analysis: "..."        // AI analysis summary
+}
+```
+
+---
+
+### `client.risk(params)`
+
+Analyze wallet risk profile.
+
+```typescript
+const result = await client.risk({
+  address: "0x...",
+});
+```
+
+**Response: `RiskResult`**
+
+```typescript
+{
+  riskScore: 25,              // 0-100 (higher = riskier)
+  riskLevel: "low",           // "low" | "medium" | "high" | "critical"
+  factors: [...],             // Risk factors detected
+  recommendation: "..."       // AI recommendation
+}
+```
+
+---
+
+### `client.social(params)`
+
+Get social media sentiment and trends.
+
+```typescript
+const result = await client.social({
+  assets: ["BTC", "ETH"],
+});
+```
+
+**Response: `SocialResult`**
+
+```typescript
+{
+  sentiment: {
+    score: 65,
+    trend: "bullish"
+  },
+  trendingTopics: [...],     // What's trending
+  volume: "high",            // Social activity level
+  warnings: [...]            // Potential concerns
+}
+```
+
+---
+
+### `client.getHistory()`
+
+Fetch your past query history (recorded on-chain).
+
+```typescript
+const history = await client.getHistory();
+// Returns: QueryHistoryItem[]
+```
+
+---
+
+## 🔧 Configuration
+
+### Environment Variables
+
+```bash
+# Required for real payment mode
+PRIVATE_KEY=0x...
+
+# Optional: Custom API endpoint
+QUERYFLOW_API_URL=https://api.queryflow.io
+```
+
+### Custom API URL
+
+```typescript
+const client = new QueryFlowClient(privateKey, {
+  apiUrl: "https://your-custom-endpoint.com",
+});
+```
+
+---
+
+## 📁 Examples
+
+See the `examples/` folder for complete working demos:
+
+| File       | Description                                  |
+| :--------- | :------------------------------------------- |
+| `basic.ts` | Simple market query with signature mode      |
+| `agent.ts` | AI agent simulation making trading decisions |
+| `real.ts`  | Real AVAX payment on Fuji testnet            |
+
+Run examples:
+
+```bash
+# Signature mode (free)
+npx tsx examples/basic.ts
+
+# Real payment mode (requires AVAX)
+PRIVATE_KEY=0x... npx tsx examples/real.ts
+```
+
+---
+
+## 🏗️ Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Build
+pnpm build
+
+# Watch mode
+pnpm dev
+```
+
+---
+
+## 📄 License
+
+MIT © QueryFlow Team
+
+---
+
+## 🔗 Links
+
+- [QueryFlow Platform](https://queryflow.io)
+- [Documentation](https://docs.queryflow.io)
+- [GitHub](https://github.com/query-flow-402/query-flow-sdk)
