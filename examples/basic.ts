@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { QueryFlowClient } from "../src/index";
 import { generatePrivateKey } from "viem/accounts";
 
@@ -11,8 +12,14 @@ async function main() {
     `🔑 Wallet: ${PRIVATE_KEY.slice(0, 6)}...${PRIVATE_KEY.slice(-4)}`
   );
 
+  const isRealKey = !!process.env.PRIVATE_KEY;
+  console.log(
+    `ℹ️  Mode: ${isRealKey ? "Real Payment (TX)" : "Dev Mode (Signature)"}`
+  );
+
   const client = new QueryFlowClient(PRIVATE_KEY, {
     apiUrl: "http://localhost:3001",
+    mode: isRealKey ? "tx" : "signature",
   });
 
   try {
@@ -27,6 +34,12 @@ async function main() {
       `   Sentiment: ${market.sentiment.score}/100 (${market.sentiment.trend})`
     );
     console.log(`   Summary: ${market.sentiment.summary}`);
+
+    if (client.lastTxHash) {
+      console.log(
+        `   🔗 Tx: https://testnet.snowtrace.io/tx/${client.lastTxHash}`
+      );
+    }
   } catch (error) {
     console.error("❌ Query Failed:", error);
   }

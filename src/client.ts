@@ -34,6 +34,8 @@ export class QueryFlowClient {
   private address: string;
   private mode: "signature" | "tx" | "thirdweb";
 
+  public lastTxHash: string | null = null;
+
   // Clients for Real Payment Mode
   private walletClient?: WalletClient<Transport, Chain, Account>;
   private publicClient?: PublicClient<Transport, Chain>;
@@ -115,6 +117,8 @@ export class QueryFlowClient {
             value: parseEther(priceAvax),
           });
 
+          this.lastTxHash = hash;
+
           console.log(`   Tx Sent: ${hash}. Waiting for confirmation...`);
 
           // Wait for Receipt
@@ -163,6 +167,8 @@ export class QueryFlowClient {
             to: paymentAddress as `0x${string}`,
             value: parseEther(priceAvax),
           });
+
+          this.lastTxHash = hash;
 
           console.log(`   Tx Sent: ${hash}. Waiting for confirmation...`);
 

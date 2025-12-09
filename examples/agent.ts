@@ -8,6 +8,7 @@
  * 4. Checks its own query history for accounting
  */
 
+import "dotenv/config";
 import { QueryFlowClient } from "../src/index";
 import { generatePrivateKey } from "viem/accounts";
 
@@ -15,8 +16,14 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY || generatePrivateKey();
 
 async function runAgent() {
   console.log("🤖 Starting QuantAgent-X1...");
+  const isRealKey = !!process.env.PRIVATE_KEY;
+  console.log(
+    `ℹ️  Mode: ${isRealKey ? "Real Payment (TX)" : "Dev Mode (Signature)"}`
+  );
+
   const client = new QueryFlowClient(PRIVATE_KEY, {
     apiUrl: "http://localhost:3001",
+    mode: isRealKey ? "tx" : "signature",
   });
 
   // 1. Analyze Macro Environment
@@ -28,6 +35,9 @@ async function runAgent() {
 
   const score = market.sentiment.score;
   console.log(`   Market Score: ${score}/100 (${market.sentiment.trend})`);
+  if (client.lastTxHash) {
+    console.log(`   Tx: https://testnet.snowtrace.io/tx/${client.lastTxHash}`);
+  }
 
   // 2. Decision Logic
   if (score > 60) {
@@ -48,6 +58,12 @@ async function runAgent() {
       console.log(`   Target: $${price.prediction.targetPrice}`);
       console.log(`   Confidence: ${price.prediction.confidence}%`);
 
+      if (client.lastTxHash) {
+        console.log(
+          `   Tx: https://testnet.snowtrace.io/tx/${client.lastTxHash}`
+        );
+      }
+
       if (
         price.prediction.direction === "bullish" &&
         price.prediction.confidence > 80
@@ -66,6 +82,11 @@ async function runAgent() {
     console.log("🛡️ Running Portfolio Risk Scan...");
     const risk = await client.risk({ address: "0x123...abc" }); // Self-scan
     console.log(`   Risk Level: ${risk.risk.level}`);
+    if (client.lastTxHash) {
+      console.log(
+        `   Tx: https://testnet.snowtrace.io/tx/${client.lastTxHash}`
+      );
+    }
   } else {
     console.log("💤 Market is NEUTRAL. Standing by.");
   }
