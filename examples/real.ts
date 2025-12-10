@@ -24,7 +24,6 @@ async function main() {
   console.log("🚀 Initializing QueryFlow Client (REAL PAYMENT MODE)...");
 
   const client = new QueryFlowClient(validPrivateKey, {
-    apiUrl: "http://localhost:3001",
     mode: "tx", // <--- Enable Real Payment Mode
   });
 
