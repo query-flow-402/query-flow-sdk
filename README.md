@@ -99,6 +99,7 @@ The following tokens are supported for market, price, and social queries:
 | `AVAX` | Avalanche | `XRP`   | Ripple       |
 | `ADA`  | Cardano   | `DOGE`  | Dogecoin     |
 | `DOT`  | Polkadot  | `MATIC` | Polygon      |
+| `USDC` | USD Coin  | `USDT`  | Tether       |
 
 > **Note**: Asset names are case-insensitive. You can use `"btc"`, `"BTC"`, or `"bitcoin"`.
 
