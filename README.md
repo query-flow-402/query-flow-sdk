@@ -71,7 +71,6 @@ const client = new QueryFlowClient(privateKey);
 ```typescript
 const client = new QueryFlowClient(privateKey, {
   mode: "tx",
-  apiUrl: "https://api.queryflow.io",
 });
 // Sends real AVAX transactions on Avalanche Fuji
 // Simple, no token approvals needed
@@ -100,7 +99,7 @@ new QueryFlowClient(privateKey: string, options?: ClientOptions)
 | Parameter        | Type                  | Description                                           |
 | :--------------- | :-------------------- | :---------------------------------------------------- |
 | `privateKey`     | `string`              | Your wallet private key (with or without `0x` prefix) |
-| `options.apiUrl` | `string`              | API endpoint (default: `http://localhost:3001`)       |
+| `options.apiUrl` | `string`              | API endpoint (uses production by default)             |
 | `options.mode`   | `"signature" \| "tx"` | Payment mode (default: `"signature"`)                 |
 
 ---
@@ -228,8 +227,8 @@ const history = await client.getHistory();
 # Required for real payment mode
 PRIVATE_KEY=0x...
 
-# Optional: Custom API endpoint
-QUERYFLOW_API_URL=https://api.queryflow.io
+# Optional: Custom API endpoint (uses production by default)
+# QUERYFLOW_API_URL=https://your-custom-endpoint.com
 ```
 
 ### Custom API URL
