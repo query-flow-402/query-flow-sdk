@@ -1,6 +1,6 @@
 {
   "name": "@queryflow-402/sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "QueryFlow SDK for Node.js/TypeScript",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
