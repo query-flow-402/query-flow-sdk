@@ -88,6 +88,22 @@ const client = new QueryFlowClient(privateKey, { mode: "thirdweb" });
 
 ---
 
+## 🪙 Supported Assets
+
+The following tokens are supported for market, price, and social queries:
+
+| Symbol | Name      | Symbol  | Name         |
+| :----- | :-------- | :------ | :----------- |
+| `BTC`  | Bitcoin   | `SOL`   | Solana       |
+| `ETH`  | Ethereum  | `BNB`   | Binance Coin |
+| `AVAX` | Avalanche | `XRP`   | Ripple       |
+| `ADA`  | Cardano   | `DOGE`  | Dogecoin     |
+| `DOT`  | Polkadot  | `MATIC` | Polygon      |
+
+> **Note**: Asset names are case-insensitive. You can use `"btc"`, `"BTC"`, or `"bitcoin"`.
+
+---
+
 ## 📖 API Reference
 
 ### Constructor
