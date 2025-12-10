@@ -1,8 +1,8 @@
-# @queryflow/sdk
+# @queryflow-402/sdk
 
 The official Node.js/TypeScript SDK for **QueryFlow** — a pay-per-query AI insights platform powered by the x402 payment protocol on Avalanche.
 
-[![npm version](https://img.shields.io/npm/v/@queryflow/sdk.svg)](https://www.npmjs.com/package/@queryflow/sdk)
+[![npm version](https://img.shields.io/npm/v/@queryflow-402/sdk.svg)](https://www.npmjs.com/package/@queryflow-402/sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## ✨ Features
@@ -18,11 +18,11 @@ The official Node.js/TypeScript SDK for **QueryFlow** — a pay-per-query AI ins
 ## 📦 Installation
 
 ```bash
-npm install @queryflow/sdk
+npm install @queryflow-402/sdk
 # or
-pnpm add @queryflow/sdk
+pnpm add @queryflow-402/sdk
 # or
-yarn add @queryflow/sdk
+yarn add @queryflow-402/sdk
 ```
 
 ---
@@ -30,7 +30,7 @@ yarn add @queryflow/sdk
 ## 🚀 Quick Start
 
 ```typescript
-import { QueryFlowClient } from "@queryflow/sdk";
+import { QueryFlowClient } from "@queryflow-402/sdk";
 
 // Initialize with your wallet private key
 const client = new QueryFlowClient(process.env.PRIVATE_KEY);

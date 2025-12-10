@@ -46,7 +46,12 @@ export class QueryFlowClient {
     this.privateKey = privateKey.startsWith("0x")
       ? privateKey
       : `0x${privateKey}`;
-    this.apiUrl = options.apiUrl || "http://localhost:3001";
+    // API Base URL
+    const API_URL =
+      options.apiUrl ||
+      process.env.NEXT_PUBLIC_API_URL ||
+      "http://103.94.239.242"; //query-flow-app.onrender.com";
+    this.apiUrl = API_URL;
     this.mode = options.mode || "signature";
 
     // Derive address

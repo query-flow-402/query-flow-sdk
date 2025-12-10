@@ -1,5 +1,5 @@
 {
-  "name": "@queryflow/sdk",
+  "name": "@queryflow-402/sdk",
   "version": "0.1.0",
   "description": "QueryFlow SDK for Node.js/TypeScript",
   "main": "dist/index.js",
