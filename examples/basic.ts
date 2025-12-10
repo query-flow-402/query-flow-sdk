@@ -18,7 +18,7 @@ async function main() {
   );
 
   const client = new QueryFlowClient(PRIVATE_KEY, {
-    apiUrl: "http://localhost:3001",
+    apiUrl: "http://103.94.239.242",
     mode: isRealKey ? "tx" : "signature",
   });
 

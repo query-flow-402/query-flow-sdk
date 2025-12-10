@@ -50,7 +50,7 @@ export class QueryFlowClient {
     const API_URL =
       options.apiUrl ||
       process.env.NEXT_PUBLIC_API_URL ||
-      "http://103.94.239.242"; //query-flow-app.onrender.com";
+      "https://queryflow.kidman.my.id";
     this.apiUrl = API_URL;
     this.mode = options.mode || "signature";
 
