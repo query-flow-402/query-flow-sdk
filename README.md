@@ -304,5 +304,5 @@ MIT © QueryFlow Team
 ## 🔗 Links
 
 - [QueryFlow Platform](https://queryflow.io)
-- [Documentation](https://docs.queryflow.io)
+- [Documentation](https://query-flow-app-web.vercel.app/docs/index.html)
 - [GitHub](https://github.com/query-flow-402/query-flow-sdk)
